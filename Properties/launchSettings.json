@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BeasstReciver": {
+      "commandName": "Project",
+      "commandLineArgs": "--bt-port=COM5"
+    }
+  }
+}

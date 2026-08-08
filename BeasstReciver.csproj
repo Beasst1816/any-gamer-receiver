@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- ImplicitUsings + UseWindowsForms silently adds "using System.Net.Mime;".
+         MediaTypeNames.Application / MediaTypeNames.Font collide with
+         System.Windows.Forms.Application and System.Drawing.Font (CS0104).
+         Removing it here is the single-point fix; call sites are also
+         explicitly qualified below as a second, independent safeguard. -->
+		<Using Remove="System.Net.Mime" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Aghili.Extensions.System.IO.Ports" Version="8.0.0" />
+		<PackageReference Include="Nefarius.ViGEm.Client" Version="1.21.256" />
+		<!-- Needed for WMI Bluetooth COM-port auto-detection (iteration 2 below).
+         I can't verify this exact version resolves against nuget.org from
+         this sandbox (no network access to check) — if `dotnet restore`
+         can't find 8.0.0, drop the Version attribute or check nuget.org for
+         the latest 8.x release. -->
+		<PackageReference Include="System.Management" Version="8.0.0" />
+	</ItemGroup>
+</Project>
